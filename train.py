@@ -1,10 +1,10 @@
 """
-Multi-layer Recurrent Neural Networks (LSTM, RNN) for 
-character-level language models in Python using Tensorflow 
+Multi-layer Recurrent Neural Networks (LSTM, RNN) for
+character-level language models in Python using Tensorflow
 and modified to work with tensorflow.js and ml5.js
 
 Based on https://github.com/sherjilozair/char-rnn-tensorflow.
- 
+
 This script will train and dump the checkpoints to javascript
 """
 
@@ -40,17 +40,17 @@ def main():
                         help='directory to store checkpointed models')
     parser.add_argument('--log_dir', type=str, default='logs',
                         help='directory to store tensorboard logs')
-    parser.add_argument('--rnn_size', type=int, default=128,
+    parser.add_argument('--rnn_size', type=int, default=2048,
                         help='size of RNN hidden state')
     parser.add_argument('--num_layers', type=int, default=2,
                         help='number of layers in the RNN')
     parser.add_argument('--model', type=str, default='lstm',
                         help='rnn, gru, lstm, or nas')
-    parser.add_argument('--batch_size', type=int, default=50,
+    parser.add_argument('--batch_size', type=int, default=128,
                         help='minibatch size')
-    parser.add_argument('--seq_length', type=int, default=50,
+    parser.add_argument('--seq_length', type=int, default=256,
                         help='RNN sequence length')
-    parser.add_argument('--num_epochs', type=int, default=50,
+    parser.add_argument('--num_epochs', type=int, default=150,
                         help='number of epochs')
     parser.add_argument('--save_every', type=int, default=1000,
                         help='save frequency')
@@ -87,7 +87,7 @@ def train(args):
     args.save_dir = os.path.join(args.save_checkpoints, model_name)
     if not os.path.exists(args.save_dir):
         os.makedirs(args.save_dir)
-    
+
     data_loader = TextLoader(args.data_dir, args.batch_size, args.seq_length)
     args.vocab_size = data_loader.vocab_size
 
